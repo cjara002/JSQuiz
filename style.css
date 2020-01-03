@@ -1,0 +1,154 @@
+.quizHeader {
+    text-align: center;
+  }
+
+  #countdown{
+      text-align: center;
+      font-weight: normal;
+  }
+  #questionHeader {
+    color: white;
+    background-color: black;
+  }
+  #submitQ {
+    float: right;
+    margin-top: 1em;
+    border-radius: 25px;
+  }
+  .container {
+    border: solid;
+    margin-top: 1em;
+    border-width: thin;
+    border-radius: 5px;
+    background-color: white;
+  }
+  #answerHold {
+    margin-bottom: 1em;
+  }
+  
+  .progressBar {
+    counter-reset: step;
+  }
+  .progressBar li {
+    list-style-type: none;
+    float: left;
+    width: 25%;
+    align-content: center;
+    position: relative;
+    text-align: center;
+    margin-top:5px;
+  }
+  
+  .progressBar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    line-height: 30px;
+    background-color: white;
+  }
+  
+  .progressBar li:after{
+      content: " ";
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background-color: black;
+      top: 15px;
+      left: -50%;
+      z-index: -1;
+  }
+  
+  .progressBar li:first-child:after {
+      content:none
+  }
+  
+  .progressBar li.active{
+    color: white;  
+  }
+  .progressBar li.active:before{
+    /* border-color:black;  */
+    background-color: darkblue;
+     
+  }
+  .progressBar li.active + li:after{
+    background-color: darkblue; 
+     
+  }
+
+  .quizInput{
+      margin: 15px;
+  }
+
+  #choice0, #choice1, #choice2, #choice3, #choice4 {
+    margin: 10px;
+  }
+
+  .quizPage {
+      background: url(https://images.pexels.com/photos/1037993/pexels-photo-1037993.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+      background-repeat: no-repeat; 
+  }
+
+  .container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eeeeee;
+    border-radius: 50%;
+  }
+
+  .container input ~ .checkmark:hover{
+    background-color: #ccc;
+  }
+
+  .container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+  }
+  
