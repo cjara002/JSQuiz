@@ -117,16 +117,21 @@ function populate() {
 
 //==================Progess bar Start =============================//
 function showProgress() {
+  // debugger;
   var progressBar = document.getElementById("myProgress");
   var progressLi = progressBar.getElementsByClassName("list");
   for (let i = 0; i < progressLi.length; i++) {
-    progressLi[i].addEventListener("click", handleActive());
+    const progress = progressLi[i];
+    progress.addEventListener("click", handleActive(progress));
   }
 }
 
-function handleActive() {
+function handleActive(progress) {
+  console.log("handleActive:", progress);
+  // debugger;
   var current = document.getElementsByClassName("li");
-  current[0].className = current[0].className.add(" active");
+  // current[0].className = current[0].className.add(" active");
+  current[0].classList = current[0].classList.add("active");
   // this.className += " active";
 }
 

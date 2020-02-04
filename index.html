@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>ZipDev | JS Assessment</title>
+    <title>YumWise | Find Food Today</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css" type="text/css">
@@ -13,11 +13,11 @@
     <div>
 
         <div class="container">
-            <h1 class="quizHeader" id="endGame">JavaScript Quiz</h1>
-            <h2 id="countdown"> Ready, Set, Go!</h2>
+            <h1 class="quizHeader" id="endGame">YumWise Food Finder</h1>
+            <!-- <h2 id="countdown"> Ready, Set, Go!</h2> -->
             <hr style="margin-top: 20px; border-bottom: solid;">
             <header>
-                <p id="progress"> Question x of y</p>
+                <!-- <p id="progress"> Question x of y</p> -->
 
             </header>
             <div class="list-group" id="answerHold">
@@ -62,7 +62,7 @@
         </div>
         <div>
             <ul class="progressBar" id="myProgress">
-                <li class="list active"> </li>
+                <li class="list"> </li>
                 <li class="list"> </li>
                 <li class="list"> </li>
                 <li class="list"> </li>
@@ -75,158 +75,7 @@
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>
     <script src="userService.js"></script>
-    <!-- JS goes below-->
-    <script type="text/javascript">
-
-        //Questions provided by Ingred
-        // should I only do the first two questions in this format?
-        var questions = [
-            new Question("How do you describe yourself as a developer?", ["Hermit", "Sociable", "Serious", "Grumpy", "Do Not Know Yet"], ""),
-            new Question("Select the JavaScript based technologies:", ["AngularJS", "Ember", "VueJS", "Java", "C#"], ""),
-            new Question("Please write a palindrome.", [], ""),
-            new Question("Please write a sentence in the first box. Then rewrite the sentence backwords in the following box.", [], "")
-        ];
-
-        //I am getting question, chioces, and the answer
-        function Question(text, choices, selectedAnswer) {
-            console.log("function Question:", text, choices, selectedAnswer);
-            this.text = text;
-            this.choices = choices;
-            this.selectedAnswer = selectedAnswer;
-        }
-
-
-        // Question.prototype.correctAnswer = function (choice) {
-        //     return choice === this.answer;
-        // }
-
-        function Quiz(questions) {
-            console.log("function Quiz:", questions);
-            // this.score = 0;
-            this.questions = questions;
-            //index for question being shown
-            this.questionIndex = 0;
-            this.results = [];
-        }
-
-        Quiz.prototype.getQuestionIndex = function () {
-            return this.questions[this.questionIndex];
-        }
-
-        Quiz.prototype.isEnded = function () {
-            return this.questions.length === this.questionIndex;
-        }
-
-        Quiz.prototype.guess = function (answer) {
-            console.log("guess:", answer);
-            //here is where th console log get read. What sets this function off?
-            this.questionIndex++;
-            this.results.push(answer);
-            // window.clearInterval(timer);
-
-        }
-
-        function submitAnswer () {
-            var collectAnswer = document.getElementById("answerText").value;
-            quiz.guess(collectAnswer);
-            populate();
-
-        }
-
-
-
-        var quiz = new Quiz(questions);
-
-        //this populate starts the whole process? Should it not be on the top then? Unless everything before is used to define what will be used below.
-        populate();
-
-        function populate() {
-
-            if (quiz.isEnded()) {
-                showResults();
-            } else {
-                //show question
-                var element = document.getElementById("questionHeader");
-                element.innerHTML = quiz.getQuestionIndex().text;
-                //show chioces 
-                var choices = quiz.getQuestionIndex().choices;
-                // put if right here
-                if (choices.length > 0) {
-                    for (let i = 0; i < choices.length; i++) {
-                        var element = document.getElementById("choice" + i);
-                        element.innerHTML = choices[i];
-                        guess("input" + i, choices[i]);
-                    }
-                //    window.clearInterval(timer)
-                    makeAlert()
-                    showProgress()
-                } else {
-                    var textbox = ' <div class="input-group-prepend" id="questionTextBox"> <textarea class="form-control" id="answerText" placeholder="Write text here.." aria-label="With textarea"></textarea> </div>';
-                    var elementText = document.getElementById("questionTextBox");
-                    elementText.outerHTML = textbox;
-
-                }
-
-            }
-        };
-
-        //==================Progess bar Start =============================//
-        function showProgress() {
-            var progressBar = document.getElementById("myProgress");
-            var progressLi = progressBar.getElementsByClassName("list");
-            for (let i = 0; i < progressLi.length; i++) {
-                progressLi[i].addEventListener("click", handleActive());
-            }
-        }
-
-        function handleActive() {
-            var current = document.getElementsByClassName("li");
-            current[0].className = current[0].className.add(" active");
-            // this.className += " active";
-        }
-
-        //==================Progess bar end =============================//
-        function guess(id, guess) {
-            //this is where I should focus on
-            var button = document.getElementById(id);
-            button.onclick = function () {
-                quiz.guess(guess)
-                populate()
-                // window.clearInterval(timer)
-                // clearInterval(timer)
-            }
-        }
-
-        function showResults() {
-            var gameOverHtml = "<h1> You did it!<h1>";
-            gameOverHtml += "<h2 id='score'> Your Results are: " + quiz.results + "<h2>";
-            var element = document.getElementById("endGame");
-            //hide elements
-            document.getElementById("answerHold").style.display = "none";
-            element.innerHTML = gameOverHtml;
-
-        }
-
-        function makeAlert() {
-            if (-1 < quiz.questionIndex && quiz.questionIndex <= 1) {
-                let timeLeft = 10;
-                var timer = setInterval(function () {
-                    document.getElementById("countdown").innerHTML = timeLeft + " " + "seconds remaining";
-                    timeLeft -= 1;
-                    if (timeLeft <= 0) {
-                        clearInterval(timer);
-                        document.getElementById("countdown").innerHTML = "Next Question..";
-                        let noAnswer = "No answer selected."
-                        quiz.guess(noAnswer)
-                        populate();
-                    }
-                }, 1000);
-            } else {
-                let element = document.getElementById("countdown");
-                element.style.display = "none";
-            }
-        }
-
+   <script src="food.js"></script>
     </script>
 </body>
 
