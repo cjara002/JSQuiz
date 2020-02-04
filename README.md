@@ -1,4 +1,4 @@
-# JSQuiz is a an excersise in Javascript. Put your knowledge to the test. 
+# YumWise will help you find good food in your area. 
 
 ## Installation
 Follow the link provided in the email (assuming I sent this to you directly):
