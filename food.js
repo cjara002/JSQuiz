@@ -22,24 +22,11 @@ function Question(text, choices) {
   console.log("function Question:", text, choices);
   this.text = text;
   this.choices = choices;
-  //   this.selectedAnswer = selectedAnswer;
 }
-// function Question(text, choices, selectedAnswer) {
-//   console.log("function Question:", text, choices, selectedAnswer);
-//   this.text = text;
-//   this.choices = choices;
-//   this.selectedAnswer = selectedAnswer;
-// }
-
-// Question.prototype.correctAnswer = function (choice) {
-//     return choice === this.answer;
-// }
 
 function Quiz(questions) {
   console.log("function Quiz:", questions);
-  // this.score = 0;
   this.questions = questions;
-  //index for question being shown
   this.questionIndex = 0;
   this.results = [];
 }
@@ -91,15 +78,6 @@ function populate() {
         element.innerHTML = choices[i];
         guess("input" + i, choices[i]);
       }
-      // makeAlert(time)
-      //     showProgress()
-      //   debugger;
-      // if(timeLeft <= 0){
-      //     makeAlert()
-      //     showProgress()
-      // } else {
-      //     clearTimer()
-      // }
       if (10 <= timeLeft) {
         // makeAlert(timeLeft);
         showProgress();
@@ -111,6 +89,7 @@ function populate() {
         ' <div class="input-group-prepend" id="questionTextBox"> <textarea class="form-control" id="answerText" placeholder="Write text here.." aria-label="With textarea"></textarea> </div>';
       var elementText = document.getElementById("questionTextBox");
       elementText.outerHTML = textbox;
+      showProgress();
     }
   }
 }
@@ -122,17 +101,17 @@ function showProgress() {
   var progressLi = progressBar.getElementsByClassName("list");
   for (let i = 0; i < progressLi.length; i++) {
     const progress = progressLi[i];
-    progress.addEventListener("click", handleActive(progress));
+    if (progress.className === "list") {
+      return progress.addEventListener("click", handleActive(progress));
+    }
   }
 }
 
 function handleActive(progress) {
   console.log("handleActive:", progress);
   // debugger;
-  var current = document.getElementsByClassName("li");
-  // current[0].className = current[0].className.add(" active");
-  current[0].classList = current[0].classList.add("active");
-  // this.className += " active";
+  var current = progress;
+  current = current.classList.add("active");
 }
 
 //==================Progess bar end =============================//
@@ -151,19 +130,28 @@ function guess(id, guess) {
 }
 
 function showResults() {
+  debugger;
   const results = quiz.results;
+  const questions = quiz.questions;
+  let displayToUser = [];
+  for(let i = 0; i < results.length; i++){
+    for(let j = 0; j < questions.length; j++){
+     let response = questions[j].text + " " + results[i];
+     displayToUser.push(response)
+     break;
+    }
+  }
   console.log("showResults:", results);
+  console.log("showQuestions:", questions);
+  console.log("displayToUser:", displayToUser);
   var gameOverHtml = "<h1> You did it!<h1>";
   gameOverHtml += "<h2 id='score'> Look at your results below. <h2>" + results;
-  //   console.log("showResults:" quiz.questions)
   var element = document.getElementById("endGame");
   //hide elements
   document.getElementById("answerHold").style.display = "none";
-  document.getElementById("countdown").style.display = "none";
+  document.getElementById("myProgress").style.display = "none";
   element.innerHTML = gameOverHtml;
 }
-
-// let time = false;
 
 function makeAlert() {
   if (-1 < quiz.questionIndex && quiz.questionIndex <= 1) {
